@@ -1,0 +1,28 @@
+.navbar-transition {
+    background-color: transparent;
+    transition: background-color 0.8s ease-in-out;
+
+}
+
+@media only screen and (min-width: 576px) { 
+    .materialize-sidenav {
+    display: none;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+.long-nav {
+  display: none;
+}
+}
+
+
+
+
+
+
+
+.dropdown-menu {
+    background: transparent;
+    border: none;
+}

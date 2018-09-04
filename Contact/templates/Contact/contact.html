@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+
+{% block main %}
+
+	<h1>{% trans "Who I am" %}</h1>
+
+
+
+
+
+
+
+
+
+
+	<p>{% trans "Leave either a mail or a number and we will contact you" %}</p>
+
+	<form method="post">
+		{% csrf_token %}
+
+		<div class="form-group">
+			<label for="id_mail">{% trans "Email" %}</label>
+			<input type="text" class="form-control" id="id_mail" aria-describedby="emailHelp" placeholder="Enter email" name="mail" value="{{request.POST.mail}}">
+
+			{% if mail_error %}
+				{{mail_error}}
+			{% endif %}
+		</div>
+
+		<div class="form-group">
+			<label for="id_number">{% trans "Number" %}</label>
+			<input type="text" class="form-control" name="number" id="id_number" placeholder="Number" value="{{request.POST.number}}">
+
+			{% if number_error %}
+				{{number_error}}
+			{% endif %}
+		</div>
+
+		<div class="form-group">
+			<label for="id_message">{% trans "Message" %}</label>
+			<textarea class="form-control" name="message" id="id_message" rows="3">{{request.POST.message}}</textarea>
+
+			{% if message_error %}
+				{{message_error}}
+			{% endif %}
+		</div>
+
+		{% if form.non_field_errors %}
+			<ul>
+				{% for error in form.non_field_errors %}
+					<li>{{ error }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+
+		<button type="submit" class="btn btn-primary">Submit</button>
+
+		
+
+	</form>
+
+
+
+
+{% endblock main %}

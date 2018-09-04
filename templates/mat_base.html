@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	{% load i18n %}
+	{% load filter_url %}
+
+	<title>David Sans</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, height=device-height">
+
+	<link rel="stylesheet" href="{% static "materialize/css/materialize.css" %}">
+	<link rel="stylesheet" href="{% static "materialize/css/materialize.min.css" %}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family={{styles.name_font_name}}|{{styles.statement_font_name}}|{{styles.diags_font_name}}|{{styles.gallery_font_name}}">
+
+	<script src="{% static "jquery/jquery.js" %}"></script>
+
+	<!-- Compiled and minified JavaScript -->
+	<script src="{% static "materialize/js/materialize.min.js" %}"></script>
+  <script src="{% static "materialize/js/materialize.js" %}"></script>
+
+
+	<link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}">
+
+  
+	
+
+	{% block includes %}
+	{% endblock includes %}
+
+</head>
+
+<body>
+
+
+
+<style type="text/css">
+    .no-shadows {
+    box-shadow: none!important;
+    }
+
+    .on-top {
+      top: 0;
+    }
+
+    .drop {
+      box-shadow: none!important;
+      background-color: transparent;
+    }
+
+    #desktop-drop:focus {
+          outline: none;
+      }
+
+    .link-color {
+      color: #{{styles.nav_link_color}} !important;
+    }
+
+    .languages-color {
+      color: #{{styles.drop_link_color}} !important;
+    }
+
+    .name-color {
+      color: #{{styles.name_color}} !important;
+    }
+
+    .name-font {
+      font-family: {{styles.name_font_name|out_plus_sign}}, {{styles.name_font_general}};
+    }
+
+    .statement-font {
+      font-family: {{styles.statement_font_name|out_plus_sign}}, {{styles.statement_font_general}};
+    }
+
+    .diags-font {
+      font-family: {{styles.diags_font_name|out_plus_sign}}, {{styles.diags_font_general}};
+    }
+
+    .gallery-font {
+      font-family: {{styles.gallery_font_name|out_plus_sign}}, {{styles.gallery_font_general}};
+    }
+
+    .static-bg {
+      background-color: #{{styles.nav_bg_color}};
+    }
+
+    .hid {
+      display: none;
+    }
+
+    .drop_bg_with_color {
+      background-color: #{{styles.drop_bg_color}};
+      border-radius: 5px;
+    }
+
+    .drop_bg_without_color:hover {
+      background-color: transparent !important;
+    }
+
+    .mobile-icon-color {
+      background-color: transparent;
+      color: #{{styles.mobile_icon_color}};
+    }
+
+    .last_child_margin {
+      margin-right: 55px;
+    }
+
+    .mobile-link-color {
+      color: black;
+    }
+
+    @media only screen and (max-width: 993px) { 
+    .name-margin {
+      margin-left: 10px !important;
+    }
+    }
+    @media only screen and (min-width: 992px) { 
+        .name-margin {
+          margin-left: 65px;
+        }
+    }
+</style>
+
+
+
+<div class="navbar-fixed " style="position:fixed;"> 
+<nav class="{% if not request.path|static_navbar %} navbar-transition {% else %} static-bg {% endif %} cool-navbar no-shadows on-top {% if request.path|is_home_view %}  {% endif %}" id="hid-nav">
+    <div class="nav-wrapper">
+      <a href="{% url "home" %}#" class="brand-logo name-color name-margin name-font" id="name" {% if request.path|is_home_view %} style="display:none; " {% endif %}>David Sans</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger hid" id="mobile-butt"><i class="material-icons mobile-icon-color">menu</i></a>
+      <ul class="right hide-on-med-and-down {% if request.path|is_home_view %} hid {% endif %}" id="links">
+        <li><a href="{{request.path}}#about" class="link-color">{% trans "About" %}</a></li>
+        <li><a href="{{request.path}}#gallery" class="link-color">{% trans "Gallery" %}</a></li>
+        <li><a href="{{request.path}}#contact" class="link-color">{% trans "Contact" %}</a></li>
+        <li><a id="desktop-drop" class="dropdown-trigger link-color last_child_margin" href="#!" data-target="dropdown2">{% trans "Languages" %}<i class="material-icons right">arrow_drop_down</i></a></li>
+
+      </ul>
+    </div>
+  </nav>
+</div>
+
+
+
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="{{request.path|changeURL:'s' }}" >English</a></li>
+  <li class="divider"></li>
+  <li><a href="{{request.path|changeURL:'n' }}" >Español</a></li>
+  
+ 
+</ul>
+
+<ul id="dropdown2" class="dropdown-content drop">
+  <li class="drop_bg_without_color languages-color" id="lang1"><a href="{{request.path|changeURL:'s' }}" class="languages-color drop_bg_without_color">English</a></li>
+  
+  <li class="languages-color drop_bg_without_color" id="lang2"><a href="{{request.path|changeURL:'n' }}" class="languages-color drop_bg_without_color">Español</a></li>
+  
+ 
+</ul>
+
+
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="{{request.path}}#about" onclick="closeMobileNavigation()" class="mobile-link-color">{% trans "About" %}</a></li>
+    <li><a href="{{request.path}}#gallery" onclick="closeMobileNavigation()" class="mobile-link-color">{% trans "Gallery" %}</a></li>
+    <li><a href="{{request.path}}#contact" onclick="closeMobileNavigation()" class="mobile-link-color">{% trans "Contact" %}</a></li>
+
+    <li><a id="mobile-drop" class="dropdown-trigger" href="#!" data-target="dropdown1">{% trans "Languages" %}<i class="material-icons right">arrow_drop_down</i></a></li>
+
+  </ul>
+
+
+
+
+
+
+{% block main %}
+{% endblock main %}
+
+
+
+
+
+
+
+<script type="text/javascript">  
+
+{% if request.path|is_home_view %}
+var $hid_nav = $('#hid-nav');
+var $name = $('#name');
+var $links = $('#links');
+var $nav_butt = $('#mobile-butt');
+
+// setTimeout(function(){
+//    $hid_nav.removeClass("hid");
+// }, 1300);
+
+setTimeout(function(){
+   $name.fadeIn(4000);
+}, 1000);
+
+setTimeout(function(){
+   $nav_butt.removeClass("hid");
+}, 7500);
+
+setTimeout(function(){
+   $links.fadeIn(3000);
+}, 3000);
+{% endif %}
+   
+//   setTimeout(function(){
+//    $bg.fadeOut(1000);
+// }, 3000);
+
+//     setTimeout(function(){
+//    $video.fadeIn(7000);
+// }, 2500);
+
+
+
+
+
+var video = document.getElementById("myVideo");
+var btn = document.getElementById("myBtn");
+var pause_button = $('#pauseButton');
+
+
+
+
+function toggleVideoButton() {
+    var has_out = pause_button.hasClass("scale-out");
+    if (has_out && video.paused) {
+        pause_button.removeClass("scale-out");
+    } else {
+      if (!video.paused)
+      pause_button.addClass("scale-out");
+    }
+  }
+
+function navClickOpen() {
+  
+  if (!video.paused) {
+          video.pause();
+  }
+}
+function navClickClose() {
+  var has_out = pause_button.hasClass("scale-out");
+  if (video.paused && has_out) {
+          video.play();
+
+  } 
+}
+
+function closeMobileNavigation() {
+  $('.sidenav').sidenav('close');
+}
+
+
+
+if (/Android|webOS|iPhone|Mobile|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+  $("#desktop-drop").dropdown({'coverTrigger': false, 'hover': false, 'closeOnClick': true});
+} else {
+  $("#desktop-drop").dropdown({'coverTrigger': false, 'hover': true, 'closeOnClick': false});
+}
+
+$("#mobile-drop").dropdown({'coverTrigger': false, 'hover': false, 'closeOnClick': true});
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var side_nav_options = {
+      {% if video_active %} 'onOpenStart': navClickOpen, 'onCloseStart': navClickClose {% endif %}
+    };
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems, side_nav_options);
+
+    
+  });
+
+
+{% if not request.path|static_navbar %}
+
+{% if video_active %}
+var height = 300;
+{% else %}
+var height = 50;
+{% endif %}
+
+// $(document).ready(function() {
+//   if ($(this).scrollTop() > height) {
+//       $(".cool-navbar").css("background-color","#{{styles.nav_bg_color}}");
+//       $("#dropdown2").addClass("drop_bg_with_color");
+
+//   }
+// });
+
+
+$(document).scroll(function() {
+
+if ($(this).scrollTop() > height) {
+
+
+$(".cool-navbar").css("background-color","#{{styles.nav_bg_color}}");
+
+$("#dropdown2").addClass("drop_bg_with_color");
+
+
+
+} else {
+
+$(".cool-navbar").css("background-color","transparent");
+$("#dropdown2").removeClass("drop_bg_with_color");
+
+
+}
+
+});
+
+{% endif %}
+
+</script>
+
+<script type="text/javascript" src="{% static "particles/particles.js" %}"></script>
+<script type="text/javascript" src="{% static "particles/app.js" %}"></script>
+
+{% block scripts %}
+{% endblock scripts %}
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+{% extends "mat_base.html" %}
+
+{% load static %}
+
+{% block includes %}
+	<link href="{% static "lightbox/css/lightbox.css" %}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{% static "gallery/css/event_list.css" %}">
+{% endblock %}
+
+{% block main %}
+
+
+<div class="container">
+	<h1 class="center-align title-margin">Gallery</h1>
+
+	{% for event in object_list %}
+	{% with event.get_active_imgs as images %}
+		<h3 class="center-align">{{event.title}}</h3>
+
+			<div class="carousel">
+				{% for img in images %}
+
+					<a class="carousel-item example-image-link" href="{{img.img.url}}" data-lightbox="{{event.title}}" data-title="Click the right half of the image to move forward."><img class="car example-image responsive-image" src="{{img.img.url}}" alt=""/></a>
+
+			    	
+			    {% endfor %}
+
+
+		    </div>
+
+		<p class="center-align">{{event.description}}</p>
+		
+	{% endwith %}
+	{% endfor %}
+</div>
+
+
+
+
+
+
+
+
+
+
+    
+
+  
+
+
+
+{% endblock %}
+
+
+{% block scripts %}
+
+
+<script type="text/javascript">
+var options = {};
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.carousel');
+    var instances = M.Carousel.init(elems, options);
+  });
+
+
+
+  </script>
+
+  <script src="{% static "lightbox/js/lightbox.js" %}"></script>
+{% endblock scripts %}

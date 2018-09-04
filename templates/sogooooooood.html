@@ -1,0 +1,1215 @@
+{% extends "mat_base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block includes %}
+  <link rel="stylesheet" type="text/css" href="{% static "css/home_view.css" %}">
+  <link href="{% static "lightbox/css/lightbox.css" %}" rel="stylesheet">
+
+
+
+
+
+
+{% endblock includes %}
+
+
+
+
+{% block main %}
+
+<div style="height: 100vh; width: 100vw; background-color: black; margin: 0px; z-index: 1000" id="bg">
+        
+</div>
+
+
+{% if video_active %}
+      
+      <style type="text/css">
+        .hid {
+          display: none;
+        }
+
+        .cover-all {
+          height:100vh;
+          display:flex;
+        }
+
+        .play-button {
+          color: #{{video.button_color}};
+          margin: auto;
+          font-size: 45px;
+        }
+
+        .hero-image::after {
+          z-index: 5;
+        }
+
+        .hide-slider {
+          display: none;
+          
+        }
+
+        .add-flex {
+          display: flex !important;
+        }
+      </style>
+
+      
+          
+      <!-- <header class="v-header container video-display hid" onclick="myFunction()" id="video"> -->
+
+        <div class="hero-image hide-on-small-only"></div>
+        <div class="fullscreen-video-wrap add-flex cover-all hid hero-image hide-on-small-only" id="video" >
+          
+          
+            <video src="{% static "video.mp4" %}" autoplay muted loop id="myVideo" style="display:none"></video>
+          
+          
+
+        </div>
+
+        <div class="header-overlay " {% if video.play_pause_active %} onclick="myFunction()" {% endif %}>
+          {% if video.play_pause_active %}
+            <i class="material-icons scale-transition scale-out play-button" id="pauseButton">play_circle_outline</i>
+          {% endif %}
+        </div>
+        
+          
+          {% if controls_on %}
+          <button id="myBtn" hidden>Pause</button>
+          {% endif %}
+        </div>
+
+         
+
+{% else %}
+    <style type="text/css">
+      .slider-text {
+
+      }
+    </style>
+
+  
+
+    <section class="hide-on-small-only">
+       <div class="slider fullscreen hid" id="long-slider">
+    <ul class="slides">
+      {% for img in long_imgs %}
+      
+        <li class="hero-image">
+            <img src="{{img.img.url}}" style="height: 100%; width: 100%; background-position:center; background: no-repeat center center scroll; background-size: 100% 100%;"> <!-- random image -->
+
+            {% if img.show_text %}
+
+            <div class="caption {{img.x_text_pos}}"> 
+              <h3 style="color: #{{img.text_color}}; 
+                {% if img.y_text_pos == "c" %}
+                  margin-top: 34vh;
+                {% elif img.y_text_pos == "b" %}
+                  
+                    margin-top: 62vh;
+                  
+                {% endif %}
+              ">{{img.text}}</h3>
+              
+            </div>
+
+            {% endif %}
+
+          </li>
+      
+        
+      {% endfor %}
+      
+      
+    </ul>
+
+    <style type="text/css">
+      .indicator-item {
+        border-radius: 0px !important;
+        height: 4px !important;
+        
+        width: 25px !important;
+      } 
+      .indicator-item.active {
+        background-color: black !important;
+      }
+    </style>
+  
+
+
+
+
+
+    
+
+</div>
+
+</section>
+
+{% endif %}
+  
+
+  <section class="hide-on-med-and-up">
+
+      <div class="slider fullscreen hid" id="short-slider">
+    <ul class="slides">
+      {% for img in short_imgs %}
+      
+        <li class="hero-image">
+            <img src="{{img.img.url}}" style="height: 100%; width: 100%; background-position:center; background: no-repeat center center scroll; background-size: 100% 100%;"> <!-- random image -->
+
+            {% if img.show_text %}
+
+            <div class="caption {{img.x_text_pos}}"> 
+              <h3 style="color: #{{img.text_color}}; 
+                {% if img.y_text_pos == "c" %}
+                  margin-top: 32vh;
+                {% elif img.y_text_pos == "b" %}
+                    margin-top: 62vh;
+                {% endif %}
+              ">{{img.text}}</h3>
+              
+            </div>
+
+            {% endif %}
+
+          </li>
+      
+        
+      {% endfor %}
+      
+      
+    </ul>
+
+    <style type="text/css">
+      .indicator-item {
+        border-radius: 0px !important;
+        height: 4px !important;
+        
+        width: 25px !important;
+      } 
+      .indicator-item.active {
+        background-color: black !important;
+      }
+    </style>
+  
+
+
+
+
+
+    
+
+</div>
+
+    </section>
+
+    <style type="text/css">
+  .tranition-gradient {
+    background: linear-gradient(gray, #black)
+  }
+  
+</style>
+
+
+
+
+<style type="text/css">
+  .hero-image::after {
+  display: block;
+  position: relative;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #000000 100%);
+  margin-top: -150px;
+  height: 150px;
+  width: 100%;
+  content: '';
+}
+
+  .cool-gradient::after {
+    display: block;
+  position: relative;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #fff 100%);
+  margin-top: -150px;
+  height: 150px;
+  width: 100%;
+  content: '';
+  }
+</style>
+
+
+
+
+<style type="text/css">
+  
+
+      /*@media only screen and (max-width: 1025px) {
+      html {
+        
+        
+        overflow-x: hidden;
+      }
+      }*/
+
+  
+
+.rl-section {
+    position: relative;
+    
+}
+.rl-section:before {
+    position: absolute;
+    content:'';
+}
+
+
+
+.rl-diagonal {
+    z-index: 1;
+    padding: 3em;
+}
+.rl-diagonal:before {
+    -webkit-transform: rotate(-3deg);
+    transform: rotate(-3deg);
+    -webkit-transform-origin: -3% 0;
+    transform-origin: -3% 0;
+    top: 0;
+    left: -25%;
+    z-index: -1;
+    width: 150%;
+    height: 75%;
+    background: inherit;
+}
+</style>
+
+
+<style type="text/css">
+    
+    .lr-section {
+        position: relative;
+
+        
+    }
+    .lr-diagonal {
+       text-align: center;
+        -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+
+    
+    }
+    .lr-content {
+          -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+    }
+    .lr-section:before {
+        position: absolute;
+        content:'';
+
+
+        
+        
+    }
+    
+    
+    .lr-diagonal {
+        z-index: 1;
+        padding: 3em;
+    }
+    .lr-diagonal:before {
+        -webkit-transform: rotate(-3deg);
+        transform: rotate(-3deg);
+        -webkit-transform-origin: -3% 0;
+        transform-origin: -3% 0;
+        top: 0;
+        left: -25%;
+        z-index: -1;
+        width: 150%;
+        height: 75%;
+        background: inherit;
+
+
+    } 
+
+    @media only screen and (max-width: 600px) {
+      .first-section {
+      height: {{diagonals.first_sec_mob_height}}px;
+      background-color: #{{diagonals.first_sec_bg_color}};
+
+      }
+    }
+
+    @media only screen and (min-width: 600px) {
+      .first-section {
+      height: {{diagonals.first_sec_height}}px;
+      background-color: #{{diagonals.first_sec_bg_color}};
+      }
+      .first-section-content {
+      color: #{{diagonals.statement_color}};
+      margin-top: 95px ;
+      }
+
+      
+    }
+
+    
+
+    
+
+    @media only screen and (max-width: 600px) {
+      .second-section {
+      height: 400px;
+      background-color: #{{diagonals.second_sec_bg_color}};
+
+      }
+    }
+
+    @media only screen and (min-width: 600px) {
+      .second-section {
+        height: 500px;
+        background-color: #{{diagonals.second_sec_bg_color}};
+      }
+
+      .second-section-title {
+      color: #{{diagonals.second_sec_title_color}};
+      margin-top: 0px;
+      margin-bottom: 40px;
+    }
+    }
+
+    .second-section-content {
+      color: #{{diagonals.second_sec_text_color}};
+    }
+
+    
+
+    @media only screen and (max-width: 600px) {
+      .third-section {
+      height: 450px;
+      background-color: #{{diagonals.third_sec_bg_color}};
+      }
+
+      .second-section-title {
+      color: #{{diagonals.second_sec_title_color}};
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+    }
+
+    @media only screen and (min-width: 600px) {
+      .third-section {
+        height: 550px;
+        background-color: #{{diagonals.third_sec_bg_color}};
+
+      }
+
+      .third-section-title {
+      color: #{{diagonals.third_sec_title_color}};
+      margin-top: 0px;
+      margin-bottom: 40px;
+    }
+    }
+
+    .third-section-content {
+      color: #{{diagonals.third_sec_text_color}};
+    }
+
+    
+
+    @media only screen and (max-width: 600px) {
+      .fourth-section {
+      height: {{diagonals.fourth_sec_mob_height}}px;
+      background-color: #{{diagonals.fourth_sec_bg_color}};
+
+      }
+    }
+
+    @media only screen and (min-width: 600px) {
+      .fourth-section {
+      height: {{diagonals.fourth_sec_height}}px;
+      background-color: #{{diagonals.fourth_sec_bg_color}};
+      }
+
+      .fourth-section-title {
+      color: #{{diagonals.fourth_sec_title_color}};
+      margin-top: 0px;
+      margin-bottom: 40px;
+      }
+    }
+
+    .fourth-section-content {
+      color: #{{diagonals.fourth_sec_text_color}};
+    }
+
+    
+
+    .align-statement {
+      width: 100vw;
+      text-align: center;
+      position: absolute;
+    }
+
+    .imgs-align {
+      margin-top: 10px;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .title-size {
+        font-size: 18px;
+      }
+
+      .fourth-section-title {
+      color: #{{diagonals.fourth_sec_title_color}};
+      margin-top: 0px;
+      margin-bottom: 0px;
+      }
+  }
+</style>
+
+
+
+
+<style type="text/css">
+  @media only screen and (min-width: 700px) {
+      .second-wrapper {
+        height: 320px;
+      }
+
+      .third-wrapper {
+        height: 380px;
+      }
+
+
+  }
+  @media only screen and (max-width: 700px) {
+    .second-wrapper {
+        width: 90vw;
+        height: 270px;
+      }
+
+    .third-wrapper {
+        width: 90vw;
+        height: 360px;
+      }
+
+    .fourth-wrapper {
+        height: 200px;
+        width: 90vw;
+      }
+    .img-right {
+      margin-left: 10px;
+    }
+
+    .text-right {
+      padding-left: 6px;
+    }
+
+    .text-left {
+      padding-right: 10px;
+    }
+
+    .first-section-content {
+      margin-top: 115px;
+      font-size: 35px;
+      color: #{{diagonals.statement_color}};
+    }
+
+    .no-right-padding {
+      padding-right: 0px !important;
+    }
+  }
+</style>
+
+
+  <!-- <i class="material-icons">play_circle_outline</i> -->
+
+<section id="about">
+  <div class="first-section" id="particles-statement"> <!-- id="particles-js" -->
+      <div class="row align-statement">
+          <div class="col s12">
+            <h2 class="center-align first-section-content">{{diagonals.statement}}</h2>
+          </div>
+      </div>
+        
+  </div>
+
+    <div class="lr-diagonal lr-section second-section" >
+      <div class="lr-content row valign-wrapper second-wrapper" style="">
+        
+        {% if diagonals.second_sec_img %}
+        <div class="col s8" >
+          <h2 class="second-section-title title-size">{{diagonals.second_sec_title}}</h2>
+          <p class="second-section-content text-right">
+          Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+          Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+          Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+          Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+          Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+          Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+
+        </p>
+        </div>
+
+        <div class="col s4">
+          <img class="img-right responsive-img circle" src="{{diagonals.second_sec_img.url}}" width="{{diagonals.second_sec_img_width}}" height="{{diagonals.second_sec_img_height}}">
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div class="rl-diagonal rl-section third-section" style="">
+    <div class="third-section-content row valign-wrapper third-wrapper center-align">
+        
+        {% if diagonals.third_sec_img %}
+
+        <div class="col s5">
+          <img class="circle responsive-img" src="{{diagonals.third_sec_img.url}}" width="{{diagonals.third_sec_img_width}}" height="{{diagonals.third_sec_img_height}}">
+        </div>
+
+        <div class="col s7 center-align">
+          <h2 class="third-section-title title-size text-left">{{diagonals.third_sec_title}}</h2>
+          <p class="text-left">hola pepepepe choca loco puta Lorem ipsum Lorem ipsum
+          Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+          Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+          Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+          Lorem ipsu  </p>
+        </div>
+
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div class="lr-diagonal lr-section fourth-section" style="">
+      <div class="lr-content row valign-wrapper fourth-wrapper">
+        
+        {% if diagonals.fourth_sec_img %}
+        <div class="col s7 no-right-padding">
+          <h2 class="fourth-section-title title-size">{{diagonals.fourth_sec_title}}</h2>
+          <p class="fourth-section-content text-right">
+          Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+          Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+          Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+          Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+          Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+          Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+
+        </p>
+        </div>
+
+        <div class="col s5">
+          <img class="img-right responsive-img circle" src="{{diagonals.fourth_sec_img.url}}" width="{{diagonals.fourth_sec_img_width}}" height="{{diagonals.fourth_sec_img_height}}">
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+    
+
+
+
+<style type="text/css">
+  .car-img {
+    width: 300px !important;
+    height: 250px !important;
+  }
+
+  @media only screen and (min-width: 600px) {
+  .car-style {
+        height: 290px;
+  }
+  }
+
+  @media only screen and (max-width: 600px) {
+  .car-style {
+        height: 260px;
+  }
+  }
+
+  .gallery {
+    background-color: gray;
+  }
+
+  .title-style {
+    margin: 0px;
+    padding-bottom: 50px;
+  }
+
+  @media only screen and (max-width: 700px) {
+      .title-size {
+        font-size: 28px;
+      }
+
+      .shrink-img {
+        width: 170px !important;
+        height: 105px !important;
+      }
+  }
+</style>
+
+<div {% if not theres_event %} style="display: none" {% endif %} class="gallery" id="gallery">
+  {% with main_event.get_active_imgs as images %}
+
+      <div class="carousel car-style">
+        {% for img in images %}
+
+          <a class="carousel-item example-image-link car-img shrink-img" href="{{img.img.url}}" data-lightbox="{{main_event.title}}" data-title="{{click_msg}}"><img class="example-image responsive-image shrink-img" src="{{img.img.url}}" alt=""/></a>
+
+          {% endfor %}
+
+        </div>
+
+      <h3 class="center-align title-style title-size">{{main_event.title}}</h3>
+
+    <!-- <a href="{% url "gallery" %}" class="center-align">{% trans "View gallery" %}</a> -->
+    
+  {% endwith %}
+</div>
+
+
+
+
+
+<style type="text/css">
+  .tranition-gradient {
+    background: linear-gradient(#000000, #00f)
+  }
+  
+</style>
+
+  
+
+
+
+<style type="text/css">
+  .input-box {
+    border-radius: 5px !important;
+    border: solid 2px #9e9e9e !important;
+    color: white !important;
+  }
+
+  .input-box:focus {
+    box-shadow: none !important;
+  }
+
+  .input-box:focus {
+    border-color: #5b6ba6 !important;
+    border-radius: 4px !important;
+  }
+
+
+  .id-label {
+    color: white !important;
+    font-size: 16px;
+  }
+
+  .button {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    -moz-transition: background-color 0.2s ease-in-out;
+    -webkit-transition: background-color 0.2s ease-in-out;
+    -ms-transition: background-color 0.2s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 0;
+    box-shadow: inset 0 0 0 2px #9e9e9e;
+    
+    color: #ffffff !important;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Raleway, Helvetica, sans-serif;
+    font-size: 0.8em;
+    font-weight: 700;
+    height: 3.75em;
+    letter-spacing: 0.1em;
+    line-height: 3.75em;
+    padding: 0 2.25em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .button:focus {
+    border-color: #5b6ba6 !important;
+    border-radius: 5px !important;
+  }
+
+    
+    .button:hover {
+      background-color: rgba(255, 255, 255, 0.025);
+    }
+
+    
+    .button:active {
+      background-color: rgba(255, 255, 255, 0.075);
+    }
+
+    
+    .button.icon:before {
+      margin-right: 0.5em;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    
+    .button.primary {
+      background-color: #4c5c96;
+      box-shadow: none;
+    }
+
+      
+      .button.primary:hover {
+        background-color: #53639e;
+      }
+
+      
+      .button.primary:active {
+        background-color: #45558d;
+      }
+
+      
+      
+      .button.primary.icon:before {
+        color: #7985b0;
+      }
+
+    
+
+    
+    
+    .button:disabled {
+      opacity: 0.25;
+    }
+
+
+    .icon {
+      font-size: 30px;
+      color: white;
+    }
+
+    
+
+    @media only screen and (min-width: 992px) { 
+        .particles-height {
+        height: 600px;
+        }
+    }
+
+  @media only screen and (max-width: 991px) {
+      .particles-height {
+        height: 730px;
+      }
+  }
+</style>
+
+
+
+
+<div class="particles-height" id="particles-js" style="background-color: black">
+
+  <div class="row" style="position: absolute; width: 100%">
+
+  <div class="col s12 l6">
+    <h4 class="center-align" style="color: white">{% trans "Social Media" %}</h4>
+    <a href="https://www.instagram.com/deivid_sans/" target="_blank"><i class="fab fa-instagram icon"></i></a>
+    <a href="https://www.instagram.com/deivid_sans/" target="_blank"><i class="fab fa-twitter-square icon"></i></a>
+    <p style="color: white;"><span>Mail</span>: <a  href="mailto:sans.david1@gmail.com">sans.david1@gmail.com</a></p>
+  </div>
+
+<style type="text/css">
+  .eror-color {
+    color: white;
+  }
+
+  input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+    background-color: transparent !important;
+    background-image: none !important;
+}
+</style>
+
+<div class="col s12 l6">
+  <h4 class="center-align" style="color: white">{% trans "Contact" %}</h4>
+
+  <form method="post" id="contact">{% csrf_token %}
+
+    <div class="fieldWrapper">
+    
+    <label for="{{ form.mail_or_num.id_for_label }}" class="id-label">{% trans "Mail/Number" %}</label>
+    {{ form.mail_or_num }}
+    <p id="mail_num_error" class="eror-color"></p>
+    </div>
+
+
+    <div class="fieldWrapper">
+        
+        <label for="{{ form.name.id_for_label }}" class="id-label">{% trans "Name/Company" %}</label>
+        {{ form.name }}
+        <p id="name_error" class="eror-color"></p>
+    </div>
+
+    <div class="fieldWrapper">
+        
+        <label for="{{ form.message.id_for_label }}" class="id-label">{% trans "Message (optional)" %}</label>
+        <textarea class="input-box" id="{{ form.message.id_for_label }}" style="height: 150px"></textarea>
+        <p id="message_error" class="eror-color"></p>
+        
+    </div>
+
+     
+     
+       <input type="submit" id="submitButton" class="button" value="{% trans "Send message" %}" />
+        <p id="successMessage" class="eror-color"></p>
+   
+
+    
+
+</form>
+
+</div>
+
+</div>
+
+
+
+
+</div>
+
+
+
+  
+
+
+
+{% endblock main %}
+
+
+
+
+
+{% block scripts %}
+
+
+
+
+
+
+
+<script type="text/javascript">
+  
+  var $video = $('#myVideo');
+  var $bg    = $('#bg');
+  var $short_slider = $('#short-slider');
+  var $long_slider = $('#long-slider');
+
+  var window_width = $(window).width();
+
+
+   
+//   setTimeout(function(){
+//    $bg.fadeOut(1000);
+// }, 3000);
+
+
+
+    {% if video_active %}
+    if (window_width > 900) {
+      setTimeout(function(){
+         $video.fadeIn(5000);
+      }, 6000);
+    } else if (window_width <= 900 && window_width > 600) {
+      setTimeout(function(){
+         $video.fadeIn(5000);
+      }, 3500);
+    } 
+    {% else %}
+
+    if (window_width > 900) {
+      setTimeout(function(){
+         $long_slider.fadeIn(5000);
+      }, 6000);
+
+    } else if (window_width <= 900 && window_width > 600) {
+      setTimeout(function(){
+         $long_slider.fadeIn(5000);
+      }, 3500);
+    } 
+    {% endif %}
+
+    if (window_width <= 600) {
+        setTimeout(function(){
+         $short_slider.fadeIn(5000);
+      }, 3500);
+    }
+
+</script>
+
+
+<script type="text/javascript">
+  $('#id_mail_or_num').addClass('input-box');
+  $('#id_message').addClass('input-box');
+  $('#id_name').addClass('input-box');
+</script>
+
+
+
+<script type="text/javascript">
+  var formValid = {mail_num_valid: false, name_valid: false, message_valid: false};
+  var MAX_CHARS = 600;
+  var REMOVE_ERROR_HEIGHT = 3400;
+
+  var MAIL_ERROR_ID = 'mail_num_error';
+  var NAME_ERROR_ID = 'name_error';
+  var MESSAGE_ERROR_ID = 'message_error';
+
+  // $(document).scroll(function() {
+  //     console.log($(this).scrollTop())
+  //     if ($(this).scrollTop() < REMOVE_ERROR_HEIGHT) {
+  //       hide(MAIL_ERROR_ID);
+  //       hide(NAME_ERROR_ID);
+  //       hide(MESSAGE_ERROR_ID);
+  //     }
+  // });
+
+  function checkValidation() {
+      var all_ok = true;
+      
+      for (validation in formValid) {
+        if (! (formValid[validation] == true) ) {all_ok = false;}
+        
+      }
+      return all_ok
+  };
+
+  function mailNumValidation() {
+      var mail_id = '{{form.mail_or_num.id_for_label}}';
+      var error_id = MAIL_ERROR_ID;
+      var mail_num = $('#' + mail_id).val();
+     
+
+
+      var num_exp = new RegExp('^[0-9]+$'); 
+      var mail_exp = /\S+@\S+\.\S+/
+
+      num_test = num_exp.test(mail_num);
+      mail_test = mail_exp.test(mail_num);
+
+
+
+      if (mail_test) {
+        formValid.mail_num_valid = true;
+        hide(error_id);
+        
+        
+      }
+
+      else if (mail_num.length == 0) {
+        formValid.mail_num_valid = false;
+        errorMessage(error_id, "{{field_required_msg}}");
+        
+      }
+
+      else if (num_test && 9 <= mail_num.length && mail_num.length <= 13) {   
+        formValid.mail_num_valid = true;
+        hide(error_id);
+        
+      }
+
+      else if (mail_num.length < 5) {
+        errorMessage(error_id, "{{too_short_msg}}");
+        formValid.mail_num_valid = false;
+      }
+
+      else if (num_test && mail_num.length < 9) {
+          errorMessage(error_id, "{{num_short_msg}}");
+          formValid.mail_num_valid = false;
+        }
+
+        else if (num_test && mail_num.length > 13) {
+          errorMessage(error_id, "{{num_large_msg}}");
+          formValid.mail_num_valid = false;
+        }
+
+      else {
+        errorMessage(error_id, "{{mail_incorrect_msg}}");
+        formValid.mail_num_valid = false;
+      }
+  };
+
+  function nameValidation() {
+      var name_id = '{{form.name.id_for_label}}';
+      var error_id = NAME_ERROR_ID;
+      var name = $('#' + name_id).val(); 
+      
+
+      if (name.length > 1) {
+        formValid.name_valid = true;
+        hide(error_id);
+        
+      }
+
+      else {
+        errorMessage(error_id, "{{field_required_msg}}");
+        formValid.name_valid = false;
+      }
+  }
+
+  function messageValidation() {
+      var msg_id = '{{form.message.id_for_label}}';
+      var error_id = MESSAGE_ERROR_ID;
+      var msg = $('#' + msg_id).val(); 
+
+      if (msg.length > MAX_CHARS) {
+        errorMessage(error_id, "{{less_than_msg}} " + MAX_CHARS + " {{chars_msg}}");
+        formValid.message_valid = false;
+
+      } else {
+        formValid.message_valid = true;
+        hide(error_id);
+      }
+  }
+
+  function errorMessage(id, content) {
+      $('#' + id).text(content).show();
+  };
+
+  function hide(id) {
+    $('#' + id).hide();
+  };
+
+  $("#submitButton").click(function(event) { 
+    try {
+      mailNumValidation();
+    } catch(e) {
+      event.preventDefault();
+    }
+
+    try {
+      nameValidation();
+    } catch(e) {
+      
+      event.preventDefault();
+    }
+
+    try {
+      messageValidation();
+    } catch(e) {
+      
+      event.preventDefault();
+    }  
+
+    if (checkValidation()) {
+      
+      errorMessage('successMessage', 'Your message has been successfully sent!');
+      delay(3500);
+      
+    }
+    else {
+      event.preventDefault(); 
+      
+    }
+    
+
+
+
+
+
+  });
+
+  
+
+  
+
+
+
+</script>
+
+
+
+
+<script type="text/javascript">
+
+
+if (/Android|webOS|iPhone|Mobile|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+  $('html').css('overflow-x', 'hidden');
+}
+
+
+
+
+{% if theres_event %} 
+  if ($(window).width() < 700) {
+    var car_options = {'numVisible': 3};
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.carousel');
+    var instances = M.Carousel.init(elems, car_options);
+  });
+} else {
+  var car_options = {'numVisible': 5};
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.carousel');
+    var instances = M.Carousel.init(elems, car_options);
+  });
+}
+  
+
+  // $(document).ready(function(){
+  //   $('.carousel').carousel();
+  // });
+{% endif %}
+
+  
+
+
+
+    options = {
+    {% if slider_admin.auto_slider %}
+      'interval': {{slider_admin.slider_interval}},
+    {% else %}
+      'interval': 100000000,
+    {% endif %}
+      'duration': {{slider_admin.transition_duration}}
+  };
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.slider');
+    var instances = M.Slider.init(elems, options);
+    });
+
+  
+    
+    $('.carousel.carousel-slider').carousel({
+    fullWidth: true
+  });   
+  
+  </script>
+
+{% if theres_event %} 
+<script src="{% static "lightbox/js/lightbox.js" %}"></script>
+{% endif %}
+
+{% if video_active %}
+<script type="text/javascript" src="{% static "js/video_scroll.js" %}"></script>
+{% endif %}
+
+
+{% endblock scripts %}

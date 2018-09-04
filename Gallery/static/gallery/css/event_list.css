@@ -1,0 +1,16 @@
+@media only screen and (min-width: 576px) { 
+    .short-gallery {
+    display: none;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+.long-gallery {
+  display: none;
+}
+}
+
+.title-margin {
+	margin-top: 100px;
+}
+
